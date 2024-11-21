@@ -48,7 +48,7 @@ class App {
                         System.out.println(wiseSaying.id + " / " + wiseSaying.author + " / " + wiseSaying.content);
                     }
                 }
-            } else if (cmd.startsWith("삭제?id=")) {
+            } else if (cmd.startsWith("삭제?id=") || cmd.startsWith("수정?id=")) {
                 String number = cmd.split("=")[1];
                 int id = Integer.parseInt(number);
 
@@ -62,6 +62,18 @@ class App {
                     } else if (cmd.contains("삭제")) {
                         wiseSayingList.set(id - 1, null);
                         System.out.println(id + "번 명언이 삭제되었습니다.");
+                    } else {
+                        System.out.println("명언(기존) : " + wiseSaying.content);
+                        System.out.print("명언 : ");
+
+                        String newWiseSaying = scanner.nextLine();
+                        wiseSaying.content = newWiseSaying;
+
+                        System.out.println("작가(기존) : " + wiseSaying.author);
+                        System.out.print("작가 : ");
+
+                        String newAuthor = scanner.nextLine();
+                        wiseSaying.author = newAuthor;
                     }
                 }
             }
