@@ -43,8 +43,26 @@ class App {
                 System.out.println("----------------------");
 
                 for (int i = wiseSayingList.size() - 1; i >= 0; i--) {
-                    WiseSaying value = wiseSayingList.get(i);
-                    System.out.println(value.id + " / " + value.author + " / " + value.content);
+                    WiseSaying wiseSaying = wiseSayingList.get(i);
+                    if (wiseSaying != null) {
+                        System.out.println(wiseSaying.id + " / " + wiseSaying.author + " / " + wiseSaying.content);
+                    }
+                }
+            } else if (cmd.startsWith("삭제?id=")) {
+                String number = cmd.split("=")[1];
+                int id = Integer.parseInt(number);
+
+                if (id > wiseSayingList.size()) {
+                    System.out.println(id + "번 명언은 존재하지 않습니다.");
+                } else {
+                    WiseSaying wiseSaying = wiseSayingList.get(id - 1);
+
+                    if (wiseSaying == null) {
+                        System.out.println(id + "번 명언은 존재하지 않습니다.");
+                    } else if (cmd.contains("삭제")) {
+                        wiseSayingList.set(id - 1, null);
+                        System.out.println(id + "번 명언이 삭제되었습니다.");
+                    }
                 }
             }
         }
