@@ -31,16 +31,7 @@ class App {
             if (cmd.equals("종료")) {
                 break;
             } else if (cmd.equals("등록")) {
-                System.out.print("명언 : ");
-                String content = scanner.nextLine();
-
-                System.out.print("작가 : ");
-                String author = scanner.nextLine();
-
-                int id = ++lastId;
-
-                wiseSayingList.add(new WiseSaying(id, content, author));
-                System.out.println(id + "번 명언이 등록되었습니다.");
+                actionAdd();
             } else if (cmd.equals("목록")) {
                 System.out.println("번호 / 작가 / 명언");
                 System.out.println("----------------------");
@@ -93,5 +84,18 @@ class App {
             this.content = content;
             this.author = author;
         }
+    }
+
+    void actionAdd() {
+        System.out.print("명언 : ");
+        String content = scanner.nextLine();
+
+        System.out.print("작가 : ");
+        String author = scanner.nextLine();
+
+        int id = ++lastId;
+
+        wiseSayingList.add(new WiseSaying(id, content, author));
+        System.out.println(id + "번 명언이 등록되었습니다.");
     }
 }
