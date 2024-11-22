@@ -11,15 +11,19 @@ public class Main {
 }
 
 class App {
+
+    Scanner scanner;
+    int lastId;
+    ArrayList<WiseSaying> wiseSayingList;
+
+    App() {
+        scanner = new Scanner(System.in);
+        lastId = 0;
+        wiseSayingList = new ArrayList<>();
+    }
+
     public void run() {
         System.out.println("== 명언 앱 ==");
-
-        Scanner scanner = new Scanner(System.in);
-
-        int lastId = 0;
-
-        ArrayList<WiseSaying> wiseSayingList = new ArrayList<>();
-
         while (true) {
             System.out.print("명령) ");
             String cmd = scanner.nextLine();
@@ -37,13 +41,11 @@ class App {
 
                 wiseSayingList.add(new WiseSaying(id, content, author));
                 System.out.println(id + "번 명언이 등록되었습니다.");
-
             } else if (cmd.equals("목록")) {
                 System.out.println("번호 / 작가 / 명언");
                 System.out.println("----------------------");
 
-                for (int i = wiseSayingList.size() - 1; i >= 0; i--) {
-                    WiseSaying wiseSaying = wiseSayingList.get(i);
+                for (WiseSaying wiseSaying : wiseSayingList) {
                     if (wiseSaying != null) {
                         System.out.println(wiseSaying.id + " / " + wiseSaying.author + " / " + wiseSaying.content);
                     }
