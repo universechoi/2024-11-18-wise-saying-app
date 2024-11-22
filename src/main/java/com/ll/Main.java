@@ -12,11 +12,11 @@ public class Main {
 
 class App {
 
-    Scanner scanner;
-    int lastId;
-    ArrayList<WiseSaying> wiseSayingList;
+    private Scanner scanner;
+    private int lastId;
+    private ArrayList<WiseSaying> wiseSayingList;
 
-    App() {
+    public App() {
         scanner = new Scanner(System.in);
         lastId = 0;
         wiseSayingList = new ArrayList<>();
@@ -68,23 +68,23 @@ class App {
     }
 
     class WiseSaying {
-        int id;
-        String content;
-        String author;
+        public int id;
+        public String content;
+        public String author;
 
-        WiseSaying(int id, String content, String author) {
+        public WiseSaying(int id, String content, String author) {
             this.id = id;
             this.content = content;
             this.author = author;
         }
     }
 
-    void addWiseSaying(String content, String author) {
+    private void addWiseSaying(String content, String author) {
         wiseSayingList.add(new WiseSaying(lastId, content, author));
         System.out.println(lastId + "번 명언이 등록되었습니다.");
     }
 
-    void actionAdd() {
+    private void actionAdd() {
         System.out.print("명언 : ");
         String content = scanner.nextLine();
 
@@ -96,7 +96,7 @@ class App {
         addWiseSaying(content, author);
     }
 
-    void actionList() {
+    private void actionList() {
         System.out.println("번호 / 작가 / 명언");
         System.out.println("----------------------");
 
