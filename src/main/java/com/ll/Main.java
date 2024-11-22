@@ -79,6 +79,11 @@ class App {
         }
     }
 
+    void addWiseSaying(String content, String author) {
+        wiseSayingList.add(new WiseSaying(lastId, content, author));
+        System.out.println(lastId + "번 명언이 등록되었습니다.");
+    }
+
     void actionAdd() {
         System.out.print("명언 : ");
         String content = scanner.nextLine();
@@ -86,10 +91,9 @@ class App {
         System.out.print("작가 : ");
         String author = scanner.nextLine();
 
-        int id = ++lastId;
+        ++lastId;
 
-        wiseSayingList.add(new WiseSaying(id, content, author));
-        System.out.println(id + "번 명언이 등록되었습니다.");
+        addWiseSaying(content, author);
     }
 
     void actionList() {
