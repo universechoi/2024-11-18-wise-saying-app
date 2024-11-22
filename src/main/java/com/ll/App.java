@@ -5,9 +5,9 @@ import java.util.Scanner;
 
 public class App {
 
-    private Scanner scanner;
+    private final Scanner scanner;
     private int lastId;
-    public ArrayList<WiseSaying> wiseSayingList;
+    private final ArrayList<WiseSaying> wiseSayingList;
 
     public App() {
         scanner = new Scanner(System.in);
@@ -42,17 +42,17 @@ public class App {
                         wiseSayingList.set(id - 1, null);
                         System.out.println(id + "번 명언이 삭제되었습니다.");
                     } else {
-                        System.out.println("명언(기존) : " + wiseSaying.content);
+                        System.out.println("명언(기존) : " + wiseSaying.getContent());
                         System.out.print("명언 : ");
 
                         String newWiseSaying = scanner.nextLine();
-                        wiseSaying.content = newWiseSaying;
+                        wiseSaying.setContent(newWiseSaying);
 
-                        System.out.println("작가(기존) : " + wiseSaying.author);
+                        System.out.println("작가(기존) : " + wiseSaying.getAuthor());
                         System.out.print("작가 : ");
 
                         String newAuthor = scanner.nextLine();
-                        wiseSaying.author = newAuthor;
+                        wiseSaying.setAuthor(newAuthor);
                     }
                 }
             }
@@ -83,7 +83,7 @@ public class App {
 
         for (WiseSaying wiseSaying : wiseSayingList) {
             if (wiseSaying != null) {
-                System.out.println(wiseSaying.id + " / " + wiseSaying.author + " / " + wiseSaying.content);
+                System.out.println(wiseSaying.getId() + " / " + wiseSaying.getAuthor() + " / " + wiseSaying.getContent());
             }
         }
     }
