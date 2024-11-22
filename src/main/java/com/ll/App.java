@@ -31,34 +31,17 @@ public class App {
                 actionAdd();
             } else if (cmd.equals("목록")) {
                 actionList();
-            } else if (cmd.startsWith("삭제?id=") || cmd.startsWith("수정?id=")) {
-                String number = cmd.split("=")[1];
-                int id = Integer.parseInt(number);
+            } else if (cmd.startsWith("삭제")) {
+                String idStr = cmd.substring(6);
+                int id = Integer.parseInt(idStr);
 
-                if (id > wiseSayingList.size()) {
-                    System.out.println(id + "번 명언은 존재하지 않습니다.");
-                } else {
-                    WiseSaying wiseSaying = wiseSayingList.get(id - 1);
+                actionDelete(id);
+            } else if (cmd.startsWith("수정")) {
+                String idStr = cmd.substring(6);
+                int id = Integer.parseInt(idStr);
 
-                    if (wiseSaying == null) {
-                        System.out.println(id + "번 명언은 존재하지 않습니다.");
-                    } else if (cmd.contains("삭제")) {
-                        wiseSayingList.set(id - 1, null);
-                        System.out.println(id + "번 명언이 삭제되었습니다.");
-                    } else {
-                        System.out.println("명언(기존) : " + wiseSaying.getContent());
-                        System.out.print("명언 : ");
-
-                        String newWiseSaying = scanner.nextLine();
-                        wiseSaying.setContent(newWiseSaying);
-
-                        System.out.println("작가(기존) : " + wiseSaying.getAuthor());
-                        System.out.print("작가 : ");
-
-                        String newAuthor = scanner.nextLine();
-                        wiseSaying.setAuthor(newAuthor);
-                    }
-                }
+                actionModify(id);
+                System.out.println(id + "번 명언은 존재하지 않습니다.");
             }
         }
         scanner.close();
@@ -91,9 +74,47 @@ public class App {
         System.out.println("----------------------");
 
         for (WiseSaying wiseSaying : wiseSayingList.reversed()) {
-            if (wiseSaying != null) {
-                System.out.println(wiseSaying.getId() + " / " + wiseSaying.getAuthor() + " / " + wiseSaying.getContent());
+            System.out.println(wiseSaying.getId() + " / " + wiseSaying.getAuthor() + " / " + wiseSaying.getContent());
+        }
+    }
+
+    private void actionDelete(int id) {
+        boolean removed = wiseSayingList.removeIf(wiseSaying -> wiseSaying.getId() == id);
+
+        if (removed) {
+            System.out.println(id + "번 명언이 삭제되었습니다.");
+        } else {
+            System.out.println(id + "번 명언은 존재하지 않습니다.");
+        }
+    }
+
+    private void actionModify(int id) {
+        WiseSaying foundWiseSaying = null;
+
+        for (WiseSaying wiseSaying : wiseSayingList) {
+            if (wiseSaying.getId() == id) {
+                foundWiseSaying = wiseSaying;
+                break;
             }
         }
+
+        if (foundWiseSaying == null) {
+            System.out.println(id + "번 명언은 존재하지 않습니다.");
+            return;
+        }
+
+        System.out.println("명언(기존) : " + foundWiseSaying.getContent());
+        System.out.print("명언 : ");
+
+        String newWiseSaying = scanner.nextLine();
+        foundWiseSaying.setContent(newWiseSaying);
+
+        System.out.println("작가(기존) : " + foundWiseSaying.getAuthor());
+        System.out.print("작가 : ");
+
+        String newAuthor = scanner.nextLine();
+        foundWiseSaying.setAuthor(newAuthor);
+
+        System.out.println(id + "번 명언이 수정되었습니다.");
     }
 }
