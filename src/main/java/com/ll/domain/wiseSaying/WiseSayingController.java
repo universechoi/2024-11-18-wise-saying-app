@@ -2,12 +2,20 @@ package com.ll.domain.wiseSaying;
 
 import com.ll.WiseSaying;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class WiseSayingController {
+    private int lastId;
+    private final List<WiseSaying> wiseSayingList;
 
-    public void actionList(List<WiseSaying> wiseSayingList) {
+    public WiseSayingController() {
+        this.lastId = 0;
+        this.wiseSayingList = new ArrayList<>();
+    }
+
+    public void actionList() {
         System.out.println("번호 / 작가 / 명언");
         System.out.println("----------------------");
 
@@ -16,7 +24,7 @@ public class WiseSayingController {
         }
     }
 
-    public void actionDelete(List<WiseSaying> wiseSayingList, String cmd) {
+    public void actionDelete(String cmd) {
         String idStr = cmd.substring(6);
         int id = Integer.parseInt(idStr);
 
@@ -30,7 +38,7 @@ public class WiseSayingController {
     }
 
 
-    public void actionModify(Scanner scanner, List<WiseSaying> wiseSayingList, String cmd) {
+    public void actionModify(Scanner scanner, String cmd) {
         String idStr = cmd.substring(6);
         int id = Integer.parseInt(idStr);
 
@@ -61,5 +69,27 @@ public class WiseSayingController {
         foundWiseSaying.setAuthor(newAuthor);
 
         System.out.println(id + "번 명언이 수정되었습니다.");
+    }
+
+    private void addWiseSaying(String content, String author) {
+        ++lastId;
+
+        wiseSayingList.add(new WiseSaying(lastId, content, author));
+        System.out.println(lastId + "번 명언이 등록되었습니다.");
+    }
+
+    public void actionAdd(Scanner scanner) {
+        System.out.print("명언 : ");
+        String content = scanner.nextLine();
+
+        System.out.print("작가 : ");
+        String author = scanner.nextLine();
+
+        addWiseSaying(content, author);
+    }
+
+    public void makeSampleData() {
+        addWiseSaying("나의 죽음을 적들에게 알리지 말라.", "이순신 장군");
+        addWiseSaying("삶이 있는 한 희망은 있다.", "키케로");
     }
 }
