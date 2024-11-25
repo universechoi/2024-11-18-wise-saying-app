@@ -38,11 +38,7 @@ public class App {
             } else if (cmd.startsWith("삭제")) {
                 wiseSayingController.actionDelete(wiseSayingList, cmd);
             } else if (cmd.startsWith("수정")) {
-                String idStr = cmd.substring(6);
-                int id = Integer.parseInt(idStr);
-
-                actionModify(id);
-                System.out.println(id + "번 명언은 존재하지 않습니다.");
+                wiseSayingController.actionModify(scanner, wiseSayingList, cmd);
             }
         }
         scanner.close();
@@ -68,35 +64,5 @@ public class App {
         String author = scanner.nextLine();
 
         addWiseSaying(content, author);
-    }
-
-    private void actionModify(int id) {
-        WiseSaying foundWiseSaying = null;
-
-        for (WiseSaying wiseSaying : wiseSayingList) {
-            if (wiseSaying.getId() == id) {
-                foundWiseSaying = wiseSaying;
-                break;
-            }
-        }
-
-        if (foundWiseSaying == null) {
-            System.out.println(id + "번 명언은 존재하지 않습니다.");
-            return;
-        }
-
-        System.out.println("명언(기존) : " + foundWiseSaying.getContent());
-        System.out.print("명언 : ");
-
-        String newWiseSaying = scanner.nextLine();
-        foundWiseSaying.setContent(newWiseSaying);
-
-        System.out.println("작가(기존) : " + foundWiseSaying.getAuthor());
-        System.out.print("작가 : ");
-
-        String newAuthor = scanner.nextLine();
-        foundWiseSaying.setAuthor(newAuthor);
-
-        System.out.println(id + "번 명언이 수정되었습니다.");
     }
 }
