@@ -1,5 +1,7 @@
 package com.ll;
 
+import com.ll.domain.wiseSaying.WiseSayingController;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,11 +11,13 @@ public class App {
     private final Scanner scanner;
     private int lastId;
     private final List<WiseSaying> wiseSayingList;
+    private final WiseSayingController wiseSayingController;
 
     public App() {
         scanner = new Scanner(System.in);
         lastId = 0;
         wiseSayingList = new ArrayList<>();
+        wiseSayingController = new WiseSayingController();
     }
 
     public void run() {
@@ -30,7 +34,7 @@ public class App {
             } else if (cmd.equals("등록")) {
                 actionAdd();
             } else if (cmd.equals("목록")) {
-                actionList();
+                wiseSayingController.actionList(wiseSayingList);
             } else if (cmd.startsWith("삭제")) {
                 String idStr = cmd.substring(6);
                 int id = Integer.parseInt(idStr);
@@ -67,15 +71,6 @@ public class App {
         String author = scanner.nextLine();
 
         addWiseSaying(content, author);
-    }
-
-    private void actionList() {
-        System.out.println("번호 / 작가 / 명언");
-        System.out.println("----------------------");
-
-        for (WiseSaying wiseSaying : wiseSayingList.reversed()) {
-            System.out.println(wiseSaying.getId() + " / " + wiseSaying.getAuthor() + " / " + wiseSaying.getContent());
-        }
     }
 
     private void actionDelete(int id) {
